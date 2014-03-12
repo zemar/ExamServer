@@ -4,6 +4,9 @@
 //
 
 #import "Communicator.h"
+#import <CoreFoundation/CoreFoundation.h> 
+#include <sys/socket.h>
+#include <netinet/in.h>
 
 CFReadStreamRef readStream;
 CFWriteStreamRef writeStream;
@@ -16,18 +19,10 @@ NSOutputStream *outputStream;
 - (void)setup {
 	NSURL *url = [NSURL URLWithString:host];
 	
-	NSLog(@"Setting up connection to %@ : %i", [url absoluteString], port);
+	NSLog(@"Setting up server to %@ : %i", [url absoluteString], port);
 	
-	CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, (CFStringRef)[url host], port, &readStream, &writeStream);
+    CFSocketRef myipv4cfsock = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, kCFSocketAcceptCallBack, handleConnect, NULL);
 	
-	if(!CFWriteStreamOpen(writeStream)) {
-		NSLog(@"Error, writeStream not open");
-		
-		return;
-	}
-	[self open];
-	
-	NSLog(@"Status of outputStream: %lu", [outputStream streamStatus]);
 	
 	return;
 }
