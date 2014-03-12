@@ -2,17 +2,23 @@
 //  AppDelegate.m
 //  ExamServer
 //
-//  Created by MHoward2 on 3/12/14.
-//  Copyright (c) 2014 mike. All rights reserved.
-//
+
 
 #import "AppDelegate.h"
+#import "Communicator.h"
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+	Communicator *communicator = [[Communicator alloc] init];
+	
+	communicator->host = @"http://127.0.0.1";
+	communicator->port = 6789;
+	
+	[communicator setup];
+	[communicator open];
+
 }
 
 @end

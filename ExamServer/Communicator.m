@@ -3,7 +3,6 @@
 //  USApp
 //
 
-
 #import "Communicator.h"
 
 CFReadStreamRef readStream;
@@ -28,7 +27,7 @@ NSOutputStream *outputStream;
 	}
 	[self open];
 	
-	NSLog(@"Status of outputStream: %i", [outputStream streamStatus]);
+	NSLog(@"Status of outputStream: %lu", [outputStream streamStatus]);
 	
 	return;
 }
@@ -105,7 +104,7 @@ NSOutputStream *outputStream;
 			break;
 		}
 		default: {
-			NSLog(@"Stream is sending an Event: %i", event);
+			NSLog(@"Stream is sending an Event: %lu", event);
 			
 			break;
 		}

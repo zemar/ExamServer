@@ -10,14 +10,11 @@
 		DDF326D418D0CA2F00DA4528 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF326D318D0CA2F00DA4528 /* Cocoa.framework */; };
 		DDF326DE18D0CA2F00DA4528 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDF326DC18D0CA2F00DA4528 /* InfoPlist.strings */; };
 		DDF326E018D0CA2F00DA4528 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF326DF18D0CA2F00DA4528 /* main.m */; };
-		DDF326E418D0CA2F00DA4528 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DDF326E218D0CA2F00DA4528 /* Credits.rtf */; };
 		DDF326E718D0CA2F00DA4528 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF326E618D0CA2F00DA4528 /* AppDelegate.m */; };
 		DDF326EA18D0CA2F00DA4528 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDF326E818D0CA2F00DA4528 /* MainMenu.xib */; };
 		DDF326EC18D0CA2F00DA4528 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDF326EB18D0CA2F00DA4528 /* Images.xcassets */; };
-		DDF326F318D0CA2F00DA4528 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF326F218D0CA2F00DA4528 /* XCTest.framework */; };
 		DDF326F418D0CA2F00DA4528 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF326D318D0CA2F00DA4528 /* Cocoa.framework */; };
-		DDF326FC18D0CA2F00DA4528 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDF326FA18D0CA2F00DA4528 /* InfoPlist.strings */; };
-		DDF326FE18D0CA2F00DA4528 /* ExamServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF326FD18D0CA2F00DA4528 /* ExamServerTests.m */; };
+		DDF3270918D0CA5300DA4528 /* Communicator.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF3270818D0CA5300DA4528 /* Communicator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,16 +37,13 @@
 		DDF326DD18D0CA2F00DA4528 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDF326DF18D0CA2F00DA4528 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DDF326E118D0CA2F00DA4528 /* ExamServer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ExamServer-Prefix.pch"; sourceTree = "<group>"; };
-		DDF326E318D0CA2F00DA4528 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DDF326E518D0CA2F00DA4528 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DDF326E618D0CA2F00DA4528 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DDF326E918D0CA2F00DA4528 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		DDF326EB18D0CA2F00DA4528 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DDF326F118D0CA2F00DA4528 /* ExamServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExamServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DDF326F218D0CA2F00DA4528 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		DDF326F918D0CA2F00DA4528 /* ExamServerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ExamServerTests-Info.plist"; sourceTree = "<group>"; };
-		DDF326FB18D0CA2F00DA4528 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DDF326FD18D0CA2F00DA4528 /* ExamServerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExamServerTests.m; sourceTree = "<group>"; };
+		DDF3270718D0CA5300DA4528 /* Communicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communicator.h; sourceTree = "<group>"; };
+		DDF3270818D0CA5300DA4528 /* Communicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Communicator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +60,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDF326F418D0CA2F00DA4528 /* Cocoa.framework in Frameworks */,
-				DDF326F318D0CA2F00DA4528 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				DDF326D918D0CA2F00DA4528 /* ExamServer */,
-				DDF326F718D0CA2F00DA4528 /* ExamServerTests */,
 				DDF326D218D0CA2F00DA4528 /* Frameworks */,
 				DDF326D118D0CA2F00DA4528 /* Products */,
 			);
@@ -96,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				DDF326D318D0CA2F00DA4528 /* Cocoa.framework */,
-				DDF326F218D0CA2F00DA4528 /* XCTest.framework */,
 				DDF326D518D0CA2F00DA4528 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -115,6 +106,8 @@
 		DDF326D918D0CA2F00DA4528 /* ExamServer */ = {
 			isa = PBXGroup;
 			children = (
+				DDF3270718D0CA5300DA4528 /* Communicator.h */,
+				DDF3270818D0CA5300DA4528 /* Communicator.m */,
 				DDF326E518D0CA2F00DA4528 /* AppDelegate.h */,
 				DDF326E618D0CA2F00DA4528 /* AppDelegate.m */,
 				DDF326E818D0CA2F00DA4528 /* MainMenu.xib */,
@@ -131,25 +124,6 @@
 				DDF326DC18D0CA2F00DA4528 /* InfoPlist.strings */,
 				DDF326DF18D0CA2F00DA4528 /* main.m */,
 				DDF326E118D0CA2F00DA4528 /* ExamServer-Prefix.pch */,
-				DDF326E218D0CA2F00DA4528 /* Credits.rtf */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		DDF326F718D0CA2F00DA4528 /* ExamServerTests */ = {
-			isa = PBXGroup;
-			children = (
-				DDF326FD18D0CA2F00DA4528 /* ExamServerTests.m */,
-				DDF326F818D0CA2F00DA4528 /* Supporting Files */,
-			);
-			path = ExamServerTests;
-			sourceTree = "<group>";
-		};
-		DDF326F818D0CA2F00DA4528 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DDF326F918D0CA2F00DA4528 /* ExamServerTests-Info.plist */,
-				DDF326FA18D0CA2F00DA4528 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -232,7 +206,6 @@
 			files = (
 				DDF326DE18D0CA2F00DA4528 /* InfoPlist.strings in Resources */,
 				DDF326EC18D0CA2F00DA4528 /* Images.xcassets in Resources */,
-				DDF326E418D0CA2F00DA4528 /* Credits.rtf in Resources */,
 				DDF326EA18D0CA2F00DA4528 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,7 +214,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDF326FC18D0CA2F00DA4528 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDF3270918D0CA5300DA4528 /* Communicator.m in Sources */,
 				DDF326E718D0CA2F00DA4528 /* AppDelegate.m in Sources */,
 				DDF326E018D0CA2F00DA4528 /* main.m in Sources */,
 			);
@@ -261,7 +234,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDF326FE18D0CA2F00DA4528 /* ExamServerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,28 +256,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		DDF326E218D0CA2F00DA4528 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDF326E318D0CA2F00DA4528 /* en */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
 		DDF326E818D0CA2F00DA4528 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				DDF326E918D0CA2F00DA4528 /* Base */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		DDF326FA18D0CA2F00DA4528 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDF326FB18D0CA2F00DA4528 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -383,6 +339,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ExamServer/ExamServer-Prefix.pch";
@@ -396,6 +353,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ExamServer/ExamServer-Prefix.pch";
@@ -464,6 +422,7 @@
 				DDF3270318D0CA2F00DA4528 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DDF3270418D0CA2F00DA4528 /* Build configuration list for PBXNativeTarget "ExamServerTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +431,7 @@
 				DDF3270618D0CA2F00DA4528 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
