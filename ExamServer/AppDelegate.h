@@ -1,15 +1,26 @@
-//
-//  AppDelegate.h
-//  ExamServer
-//
-//  Created by MHoward2 on 3/12/14.
-//  Copyright (c) 2014 mike. All rights reserved.
-//
-
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@class GCDAsyncSocket;
 
-@property (assign) IBOutlet NSWindow *window;
+
+@interface AppDelegate : NSObject <NSApplicationDelegate>
+{
+	dispatch_queue_t socketQueue;
+	
+	GCDAsyncSocket *listenSocket;
+	NSMutableArray *connectedSockets;
+	
+	BOOL isRunning;
+	
+	IBOutlet id logView;
+	IBOutlet id portField;
+	IBOutlet id startStopButton;
+	
+	NSWindow *__unsafe_unretained window;
+}
+
+@property (unsafe_unretained) IBOutlet NSWindow *window;
+
+- (IBAction)startStop:(id)sender;
 
 @end
