@@ -78,6 +78,7 @@
 - (void)logError:(NSString *)msg
 {
 	NSString *paragraph = [NSString stringWithFormat:@"%@\n", msg];
+    NSLog(@"%@", paragraph);
 	
 	NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithCapacity:1];
 	[attributes setObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
@@ -91,7 +92,8 @@
 - (void)logInfo:(NSString *)msg
 {
 	NSString *paragraph = [NSString stringWithFormat:@"%@\n", msg];
-	
+    NSLog(@"%@", paragraph);
+
 	NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithCapacity:1];
 	[attributes setObject:[NSColor purpleColor] forKey:NSForegroundColorAttributeName];
 	
@@ -104,7 +106,8 @@
 - (void)logMessage:(NSString *)msg
 {
 	NSString *paragraph = [NSString stringWithFormat:@"%@\n", msg];
-	
+    NSLog(@"%@", paragraph);
+
 	NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithCapacity:1];
 	[attributes setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
 	
