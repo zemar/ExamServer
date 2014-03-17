@@ -151,6 +151,8 @@ typedef enum GCDAsyncSocketError GCDAsyncSocketError;
 - (BOOL)isIPv4PreferredOverIPv6;
 - (void)setPreferIPv4OverIPv6:(BOOL)flag;
 
+- (void)setSecure:(BOOL)sslFlag;
+
 /**
  * User data allows you to associate arbitrary information with the socket.
  * This data is not used internally by socket in any way.

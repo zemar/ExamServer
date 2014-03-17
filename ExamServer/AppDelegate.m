@@ -130,6 +130,9 @@
 		}
 		
 		NSError *error = nil;
+        [listenSocket setIPv6Enabled:false];
+        [listenSocket setSecure:false];
+        
 		if(![listenSocket acceptOnPort:port error:&error])
 		{
 			[self logError:FORMAT(@"Error starting server: %@", error)];
