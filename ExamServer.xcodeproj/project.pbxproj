@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27D16DF618D7D61E00370577 /* DSC_0764.png in Resources */ = {isa = PBXBuildFile; fileRef = 27D16DF518D7D61E00370577 /* DSC_0764.png */; };
 		61FC92F618D13CD900484458 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FC92F518D13CD900484458 /* GCDAsyncSocket.m */; };
 		61FC92F918D13E4900484458 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FC92F818D13E4900484458 /* AppDelegate.m */; };
 		61FC92FB18D1405900484458 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61FC92FA18D1405900484458 /* Security.framework */; };
@@ -14,7 +15,6 @@
 		DDF326DE18D0CA2F00DA4528 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDF326DC18D0CA2F00DA4528 /* InfoPlist.strings */; };
 		DDF326E018D0CA2F00DA4528 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF326DF18D0CA2F00DA4528 /* main.m */; };
 		DDF326EA18D0CA2F00DA4528 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDF326E818D0CA2F00DA4528 /* MainMenu.xib */; };
-		DDF326EC18D0CA2F00DA4528 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDF326EB18D0CA2F00DA4528 /* Images.xcassets */; };
 		DDF326F418D0CA2F00DA4528 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF326D318D0CA2F00DA4528 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27D16DF518D7D61E00370577 /* DSC_0764.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DSC_0764.png; sourceTree = "<group>"; };
 		61FC92F418D13CD900484458 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		61FC92F518D13CD900484458 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		61FC92F718D13E4900484458 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -44,7 +45,6 @@
 		DDF326DF18D0CA2F00DA4528 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DDF326E118D0CA2F00DA4528 /* ExamServer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ExamServer-Prefix.pch"; sourceTree = "<group>"; };
 		DDF326E918D0CA2F00DA4528 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		DDF326EB18D0CA2F00DA4528 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DDF326F118D0CA2F00DA4528 /* ExamServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExamServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,6 +72,7 @@
 		DDF326C718D0CA2F00DA4528 = {
 			isa = PBXGroup;
 			children = (
+				27D16DF518D7D61E00370577 /* DSC_0764.png */,
 				DDF326D918D0CA2F00DA4528 /* ExamServer */,
 				DDF326D218D0CA2F00DA4528 /* Frameworks */,
 				DDF326D118D0CA2F00DA4528 /* Products */,
@@ -115,7 +116,6 @@
 				61FC92F718D13E4900484458 /* AppDelegate.h */,
 				61FC92F818D13E4900484458 /* AppDelegate.m */,
 				DDF326E818D0CA2F00DA4528 /* MainMenu.xib */,
-				DDF326EB18D0CA2F00DA4528 /* Images.xcassets */,
 				DDF326DA18D0CA2F00DA4528 /* Supporting Files */,
 			);
 			path = ExamServer;
@@ -209,8 +209,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDF326DE18D0CA2F00DA4528 /* InfoPlist.strings in Resources */,
-				DDF326EC18D0CA2F00DA4528 /* Images.xcassets in Resources */,
 				DDF326EA18D0CA2F00DA4528 /* MainMenu.xib in Resources */,
+				27D16DF618D7D61E00370577 /* DSC_0764.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,7 +342,6 @@
 		DDF3270218D0CA2F00DA4528 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -356,7 +355,6 @@
 		DDF3270318D0CA2F00DA4528 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
