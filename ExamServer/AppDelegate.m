@@ -130,10 +130,6 @@
 		}
 		
 		NSError *error = nil;
-        [listenSocket setIPv6Enabled:false];
-        [listenSocket setSecure:false];
-        
-        NSLog(@"SSL enabled: %s", [listenSocket isSecure] ? "Yes" : "No");
         
 		if(![listenSocket acceptOnPort:port error:&error])
 		{

@@ -53,9 +53,9 @@
 
   // Compiling for Mac OS X
 
-  #define IS_SECURE_TRANSPORT_AVAILABLE      NO
-  #define SECURE_TRANSPORT_MAYBE_AVAILABLE   0
-  #define SECURE_TRANSPORT_MAYBE_UNAVAILABLE 1
+  #define IS_SECURE_TRANSPORT_AVAILABLE      YES
+  #define SECURE_TRANSPORT_MAYBE_AVAILABLE   1
+  #define SECURE_TRANSPORT_MAYBE_UNAVAILABLE 0
 
 #endif
 
@@ -150,8 +150,6 @@ typedef enum GCDAsyncSocketError GCDAsyncSocketError;
 
 - (BOOL)isIPv4PreferredOverIPv6;
 - (void)setPreferIPv4OverIPv6:(BOOL)flag;
-
-- (void)setSecure:(BOOL)sslFlag;
 
 /**
  * User data allows you to associate arbitrary information with the socket.

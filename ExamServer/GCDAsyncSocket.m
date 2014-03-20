@@ -84,6 +84,7 @@ static const int logLevel = LOG_LEVEL_VERBOSE;
 
 #endif
 
+
 /**
  * Seeing a return statements within an inner block
  * can sometimes be mistaken for a return point of the enclosing method.
@@ -3436,13 +3437,6 @@ enum GCDAsyncSocketConfig
 	}
 }
 
-- (void)setSecure:(BOOL)sslFlag
-{
-    if (sslFlag)
-        flags &= ~kSocketSecure;
-    else
-        flags |= kSocketSecure;
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Utilities
@@ -4389,6 +4383,7 @@ enum GCDAsyncSocketConfig
 		[preBuffer didRead:bytesToCopy];
 		
 		LogVerbose(@"copied(%lu) preBufferLength(%zu)", (unsigned long)bytesToCopy, [preBuffer availableBytes]);
+		NSLog(@"copied(%lu) preBufferLength(%zu) string = %s", (unsigned long)bytesToCopy, [preBuffer availableBytes], (char*)buffer);
 		
 		// Update totals
 		
@@ -4611,7 +4606,8 @@ enum GCDAsyncSocketConfig
 			int socketFD = (socket4FD == SOCKET_NULL) ? socket6FD : socket4FD;
 			
 			ssize_t result = read(socketFD, buffer, (size_t)bytesToRead);
-			LogVerbose(@"read from socket = %i", (int)result);
+//			LogVerbose(@"read from socket = %i", (int)result);
+			NSLog(@"read %i bytes from socket = %s", (int)result, (char*)buffer);
 			
 			if (result < 0)
 			{
