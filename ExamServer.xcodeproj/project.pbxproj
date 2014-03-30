@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		61FC92F618D13CD900484458 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FC92F518D13CD900484458 /* GCDAsyncSocket.m */; };
 		61FC92F918D13E4900484458 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FC92F818D13E4900484458 /* AppDelegate.m */; };
 		61FC92FB18D1405900484458 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61FC92FA18D1405900484458 /* Security.framework */; };
 		61FE2DDA18D7E40600DD23FF /* yas1.png in Resources */ = {isa = PBXBuildFile; fileRef = 61FE2DD918D7E40600DD23FF /* yas1.png */; };
@@ -18,8 +17,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		61FC92F418D13CD900484458 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
-		61FC92F518D13CD900484458 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		61FC92F718D13E4900484458 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		61FC92F818D13E4900484458 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		61FC92FA18D1405900484458 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -89,8 +86,6 @@
 		DDF326D918D0CA2F00DA4528 /* ExamServer */ = {
 			isa = PBXGroup;
 			children = (
-				61FC92F418D13CD900484458 /* GCDAsyncSocket.h */,
-				61FC92F518D13CD900484458 /* GCDAsyncSocket.m */,
 				61FC92F718D13E4900484458 /* AppDelegate.h */,
 				61FC92F818D13E4900484458 /* AppDelegate.m */,
 				DDF326E818D0CA2F00DA4528 /* MainMenu.xib */,
@@ -177,7 +172,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				61FC92F918D13E4900484458 /* AppDelegate.m in Sources */,
-				61FC92F618D13CD900484458 /* GCDAsyncSocket.m in Sources */,
 				DDF326E018D0CA2F00DA4528 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,13 +1,11 @@
 #import <Cocoa/Cocoa.h>
 
-@class GCDAsyncSocket;
 
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 {
 	dispatch_queue_t socketQueue;
 	
-	GCDAsyncSocket *listenSocket;
 	NSMutableArray *connectedSockets;
 	
 	BOOL isRunning;
