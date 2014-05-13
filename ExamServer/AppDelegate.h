@@ -1,18 +1,27 @@
 #import <Cocoa/Cocoa.h>
-#import "GCDAsyncUdpSocket.h"
+
+@class GCDAsyncSocket;
 
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 {
-	GCDAsyncUdpSocket *udpSocket;
+	dispatch_queue_t socketQueue;
+	
+	GCDAsyncSocket *listenSocket;
+	NSMutableArray *connectedSockets;
+	
 	BOOL isRunning;
+	
+	IBOutlet id logView;
+	IBOutlet id portField;
+	IBOutlet id startStopButton;
+	
+	NSWindow *__unsafe_unretained window;
 }
 
 @property (unsafe_unretained) IBOutlet NSWindow *window;
-@property  IBOutlet NSTextField *portField;
-@property  IBOutlet NSButton *startStopButton;
-@property  IBOutlet NSTextView *logView;
 
-- (IBAction)startStopButtonPressed:(id)sender;
+- (IBAction)startStop:(id)sender;
 
 @end
+

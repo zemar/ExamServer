@@ -5,15 +5,13 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>FB9BEEE1-7EC1-4A9D-BE6C-CD37F30C90CF</string>
+	<string>DBBADD8F-1885-4059-804E-94A4F7940CB3</string>
 	<key>IDESourceControlProjectName</key>
 	<string>ExamServer</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>7775EDAB-BAFC-40CC-A3F0-15E70520F96D</key>
 		<string>https://github.com/zemar/ExamServer.git</string>
-		<key>84F5D7C5-AE7E-4587-A39E-D96E32D15A78</key>
-		<string>https://github.com/zemar/MyAsyncSocket.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>ExamServer.xcodeproj/project.xcworkspace</string>
@@ -21,8 +19,6 @@
 	<dict>
 		<key>7775EDAB-BAFC-40CC-A3F0-15E70520F96D</key>
 		<string>../..</string>
-		<key>84F5D7C5-AE7E-4587-A39E-D96E32D15A78</key>
-		<string>../../../MyAsyncSocket</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/zemar/ExamServer.git</string>
@@ -39,14 +35,6 @@
 			<string>7775EDAB-BAFC-40CC-A3F0-15E70520F96D</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ExamServer</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>84F5D7C5-AE7E-4587-A39E-D96E32D15A78</string>
-			<key>IDESourceControlWCCName</key>
-			<string>MyAsyncSocket</string>
 		</dict>
 	</array>
 </dict>

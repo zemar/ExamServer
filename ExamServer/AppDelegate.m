@@ -1,45 +1,71 @@
 #import "AppDelegate.h"
+#import "GCDAsyncSocket.h"
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 
-// Log levels: off, error, warn, info, verbose
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#define WELCOME_MSG  0
+#define ECHO_MSG     1
+#define WARNING_MSG  2
+
+#define READ_TIMEOUT 15.0
+#define READ_TIMEOUT_EXTENSION 10.0
 
 #define FORMAT(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
 
+@interface AppDelegate (PrivateAPI)
+
+- (void)logError:(NSString *)msg;
+- (void)logInfo:(NSString *)msg;
+- (void)logMessage:(NSString *)msg;
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @implementation AppDelegate
 
-@synthesize window = _window;
-@synthesize portField;
-@synthesize startStopButton;
-@synthesize logView;
+@synthesize window;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+- (id)init
 {
-	// Setup our logging framework.
-	
-	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-	
-	// Setup our socket.
-	// The socket will invoke our delegate methods using the usual delegate paradigm.
-	// However, it will invoke the delegate methods on a specified GCD delegate dispatch queue.
-	// 
-	// Now we can configure the delegate dispatch queues however we want.
-	// We could simply use the main dispatch queue, so the delegate methods are invoked on the main thread.
-	// Or we could use a dedicated dispatch queue, which could be helpful if we were doing a lot of processing.
-	// 
-	// The best approach for your application will depend upon convenience, requirements and performance.
-	// 
-	// For this simple example, we're just going to use the main thread.
-	
-	udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+	if((self = [super init]))
+	{
+		// Setup our logging framework.
+		
+		[DDLog addLogger:[DDTTYLogger sharedInstance]];
+		
+		// Setup our socket.
+		// The socket will invoke our delegate methods using the usual delegate paradigm.
+		// However, it will invoke the delegate methods on a specified GCD delegate dispatch queue.
+		//
+		// Now we can configure the delegate dispatch queues however we want.
+		// We could simply use the main dispatc queue, so the delegate methods are invoked on the main thread.
+		// Or we could use a dedicated dispatch queue, which could be helpful if we were doing a lot of processing.
+		//
+		// The best approach for your application will depend upon convenience, requirements and performance.
+		
+		socketQueue = dispatch_queue_create("socketQueue", NULL);
+		
+		listenSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:socketQueue];
+		
+		// Setup an array to store all accepted client connections
+		connectedSockets = [[NSMutableArray alloc] initWithCapacity:1];
+		
+		isRunning = NO;
+	}
+	return self;
 }
 
 - (void)awakeFromNib
 {
-	[logView setEnabledTextCheckingTypes:0];
-	[logView setAutomaticSpellingCorrectionEnabled:NO];
+	[logView setString:@""];
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+	// Reserved
 }
 
 - (void)scrollToBottom
@@ -94,25 +120,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	[self scrollToBottom];
 }
 
-- (IBAction)startStopButtonPressed:(id)sender
+- (IBAction)startStop:(id)sender
 {
-	if (isRunning)
+	if(!isRunning)
 	{
-		// STOP udp echo server
-		
-		[udpSocket close];
-		
-		[self logInfo:@"Stopped Udp Echo server"];
-		isRunning = false;
-		
-		[portField setEnabled:YES];
-		[startStopButton setTitle:@"Start"];
-	}
-	else
-	{
-		// START udp echo server
-		
 		int port = [portField intValue];
+		
 		if (port < 0 || port > 65535)
 		{
 			[portField setStringValue:@""];
@@ -120,43 +133,146 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 		}
 		
 		NSError *error = nil;
-		
-		if (![udpSocket bindToPort:port error:&error])
+		if(![listenSocket acceptOnPort:port error:&error])
 		{
-			[self logError:FORMAT(@"Error starting server (bind): %@", error)];
-			return;
-		}
-		if (![udpSocket beginReceiving:&error])
-		{
-			[udpSocket close];
-			
-			[self logError:FORMAT(@"Error starting server (recv): %@", error)];
+			[self logError:FORMAT(@"Error starting server: %@", error)];
 			return;
 		}
 		
-		[self logInfo:FORMAT(@"Udp Echo server started on port %hu", [udpSocket localPort])];
+		[self logInfo:FORMAT(@"Echo server started on port %hu", [listenSocket localPort])];
 		isRunning = YES;
 		
 		[portField setEnabled:NO];
 		[startStopButton setTitle:@"Stop"];
 	}
-}
-
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data
-                                               fromAddress:(NSData *)address
-                                         withFilterContext:(id)filterContext
-{
-	NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	if (msg)
-	{
-		[self logMessage:msg];
-	}
 	else
 	{
-		[self logError:@"Error converting received data into UTF-8 String"];
+		// Stop accepting connections
+		[listenSocket disconnect];
+		
+		// Stop any client connections
+		@synchronized(connectedSockets)
+		{
+			NSUInteger i;
+			for (i = 0; i < [connectedSockets count]; i++)
+			{
+				// Call disconnect on the socket,
+				// which will invoke the socketDidDisconnect: method,
+				// which will remove the socket from the list.
+				[[connectedSockets objectAtIndex:i] disconnect];
+			}
+		}
+		
+		[self logInfo:@"Stopped Echo server"];
+		isRunning = false;
+		
+		[portField setEnabled:YES];
+		[startStopButton setTitle:@"Start"];
+	}
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
+{
+	// This method is executed on the socketQueue (not the main thread)
+	
+	@synchronized(connectedSockets)
+	{
+		[connectedSockets addObject:newSocket];
 	}
 	
-	[udpSocket sendData:data toAddress:address withTimeout:-1 tag:0];
+	NSString *host = [newSocket connectedHost];
+	UInt16 port = [newSocket connectedPort];
+	
+	dispatch_async(dispatch_get_main_queue(), ^{
+		@autoreleasepool {
+            
+			[self logInfo:FORMAT(@"Accepted client %@:%hu", host, port)];
+            
+		}
+	});
+	
+	NSString *welcomeMsg = @"Welcome to the AsyncSocket Echo Server\r\n";
+	NSData *welcomeData = [welcomeMsg dataUsingEncoding:NSUTF8StringEncoding];
+	
+	[newSocket writeData:welcomeData withTimeout:-1 tag:WELCOME_MSG];
+	
+	[newSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:0];
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+	// This method is executed on the socketQueue (not the main thread)
+	
+	if (tag == ECHO_MSG)
+	{
+		[sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:0];
+	}
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+	// This method is executed on the socketQueue (not the main thread)
+	
+	dispatch_async(dispatch_get_main_queue(), ^{
+		@autoreleasepool {
+            
+			NSData *strData = [data subdataWithRange:NSMakeRange(0, [data length] - 2)];
+			NSString *msg = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
+			if (msg)
+			{
+				[self logMessage:msg];
+			}
+			else
+			{
+				[self logError:@"Error converting received data into UTF-8 String"];
+			}
+            
+		}
+	});
+	
+	// Echo message back to client
+	[sock writeData:data withTimeout:-1 tag:ECHO_MSG];
+}
+
+/**
+ * This method is called if a read has timed out.
+ * It allows us to optionally extend the timeout.
+ * We use this method to issue a warning to the user prior to disconnecting them.
+ **/
+- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutReadWithTag:(long)tag
+                 elapsed:(NSTimeInterval)elapsed
+               bytesDone:(NSUInteger)length
+{
+	if (elapsed <= READ_TIMEOUT)
+	{
+		NSString *warningMsg = @"Are you still there?\r\n";
+		NSData *warningData = [warningMsg dataUsingEncoding:NSUTF8StringEncoding];
+		
+		[sock writeData:warningData withTimeout:-1 tag:WARNING_MSG];
+		
+		return READ_TIMEOUT_EXTENSION;
+	}
+	
+	return 0.0;
+}
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+	if (sock != listenSocket)
+	{
+		dispatch_async(dispatch_get_main_queue(), ^{
+			@autoreleasepool {
+                
+				[self logInfo:FORMAT(@"Client Disconnected")];
+                
+			}
+		});
+		
+		@synchronized(connectedSockets)
+		{
+			[connectedSockets removeObject:sock];
+		}
+	}
 }
 
 @end
