@@ -199,17 +199,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	
 	[newSocket writeData:welcomeData withTimeout:-1 tag:WELCOME_MSG];
 	
-	[newSocket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:0];
+	[newSocket readDataToData:[GCDAsyncSocket LFData] withTimeout:READ_TIMEOUT tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
 	// This method is executed on the socketQueue (not the main thread)
 	
-	if (tag == ECHO_MSG)
-	{
-		[sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:0];
-	}
+	[sock readDataToData:[GCDAsyncSocket LFData] withTimeout:READ_TIMEOUT tag:0];
+    
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
