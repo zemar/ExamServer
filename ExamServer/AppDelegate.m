@@ -12,6 +12,9 @@
 
 #define FORMAT(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
 
+// Log levels: off, error, warn, info, verbose
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 @interface AppDelegate (PrivateAPI)
 
 - (void)logError:(NSString *)msg;
