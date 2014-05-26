@@ -14,6 +14,8 @@
 #define WELCOME_MSG  0
 #define ECHO_MSG     1
 #define WARNING_MSG  2
+#define DATA_FILE_MSG 3
+#define SND_FILE_MSG 4
 
 #define READ_TIMEOUT 15.0
 #define READ_TIMEOUT_EXTENSION 10.0
@@ -35,16 +37,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @implementation MainViewController
 
 @synthesize window;
-
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        return self;
-    }
-    return nil;
-}
 
 - (void)awakeFromNib
 {
@@ -206,13 +198,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)sendFile:(GCDAsyncSocket *)sock
 {
-    
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
-	// This method is executed on the socketQueue (not the main thread)
-    
     DDLogVerbose(@"sending file");
 	
     NSFileHandle *file;
@@ -235,7 +220,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	[sock writeData:databuffer withTimeout:-1 tag:0];
 	[sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
     
-	tag++;
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+	// This method is executed on the socketQueue (not the main thread
 	
 	[sock readDataToData:[GCDAsyncSocket LFData] withTimeout:READ_TIMEOUT tag:0];
     
@@ -259,11 +248,18 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 				[self logError:@"Error converting received data into UTF-8 String"];
 			}
             
+            if (tag == DATA_FILE_MSG)
+            {
+                [self sendFile:sock];
+            }
+            
 		}
 	});
 	
 	// Echo message back to client
-	[sock writeData:data withTimeout:-1 tag:ECHO_MSG];
+    NSString *ackMsg = @"Sent File\r\n";
+    NSData *ackData = [ackMsg dataUsingEncoding:NSUTF8StringEncoding];
+	[sock writeData:ackData withTimeout:-1 tag:SND_FILE_MSG];
 }
 
 /**
