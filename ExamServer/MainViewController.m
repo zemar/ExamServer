@@ -28,6 +28,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)logError:(NSString *)msg;
 - (void)logInfo:(NSString *)msg;
 - (void)logMessage:(NSString *)msg;
+- (void)sendFile:(GCDAsyncSocket *)sock;
 
 @end
 
@@ -203,7 +204,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	[newSocket readDataToData:[GCDAsyncSocket LFData] withTimeout:READ_TIMEOUT tag:0];
 }
 
-- (void)sendFile:(GCDAsyncReadSocket *)sock
+- (void)sendFile:(GCDAsyncSocket *)sock
 {
     
 }
