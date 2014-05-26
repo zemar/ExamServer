@@ -20,6 +20,9 @@
 
 #define FORMAT(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
 
+// Log levels: off, error, warn, info, verbose
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 @interface MainViewController ()
 
 - (void)logError:(NSString *)msg;
@@ -200,9 +203,38 @@
 	[newSocket readDataToData:[GCDAsyncSocket LFData] withTimeout:READ_TIMEOUT tag:0];
 }
 
+- (void)sendFile:(GCDAsyncReadSocket *)sock
+{
+    
+}
+
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
 	// This method is executed on the socketQueue (not the main thread)
+    
+    DDLogVerbose(@"sending file");
+	
+    NSFileHandle *file;
+    NSData *databuffer;
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"questions" ofType:@"xml"];
+    
+    file = [NSFileHandle fileHandleForReadingAtPath: filePath];
+    
+    if (file == nil)
+        NSLog(@"Failed to open file");
+    
+    [file seekToFileOffset: 0];
+    
+    databuffer = [file readDataToEndOfFile];
+    
+    [file closeFile];
+    
+    //	NSData *data = [msg dataUsingEncoding:NSUTF8StringEncoding];
+	[sock writeData:databuffer withTimeout:-1 tag:0];
+	[sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+    
+	tag++;
 	
 	[sock readDataToData:[GCDAsyncSocket LFData] withTimeout:READ_TIMEOUT tag:0];
     
