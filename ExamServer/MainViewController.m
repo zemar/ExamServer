@@ -218,7 +218,18 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     //	NSData *data = [msg dataUsingEncoding:NSUTF8StringEncoding];
 	[sock writeData:databuffer withTimeout:-1 tag:0];
-	[sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+    NSData *strData = [databuffer subdataWithRange:NSMakeRange(0, [databuffer length] - 2)];
+    NSString *msg = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
+    if (msg)
+    {
+        [self logMessage:msg];
+    }
+    else
+    {
+        [self logError:@"Error converting received data into UTF-8 String"];
+    }
+    
+	[sock readDataToData:[GCDAsyncSocket LFData] withTimeout:-1 tag:0];
     
 }
 
@@ -248,7 +259,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 				[self logError:@"Error converting received data into UTF-8 String"];
 			}
             
-            if (tag == DATA_FILE_MSG)
+            if ([msg  isEqual: @"Please send a new file"])
             {
                 [self sendFile:sock];
             }
@@ -256,7 +267,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 		}
 	});
 	
-	// Echo message back to client
+	// Ack message back to client
     NSString *ackMsg = @"Sent File\r\n";
     NSData *ackData = [ackMsg dataUsingEncoding:NSUTF8StringEncoding];
 	[sock writeData:ackData withTimeout:-1 tag:SND_FILE_MSG];
