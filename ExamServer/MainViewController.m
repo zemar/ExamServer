@@ -198,7 +198,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)sendFile:(GCDAsyncSocket *)sock
 {
-    DDLogVerbose(@"sending file");
+    [self logMessage:@"Sending file"];
 	
     NSFileHandle *file;
     NSData *databuffer;
@@ -214,23 +214,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     databuffer = [file readDataToEndOfFile];
     
-    [file closeFile];
-    
-    //	NSData *data = [msg dataUsingEncoding:NSUTF8StringEncoding];
 	[sock writeData:databuffer withTimeout:-1 tag:0];
-    NSData *strData = [databuffer subdataWithRange:NSMakeRange(0, [databuffer length] - 2)];
-    NSString *msg = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
-    if (msg)
-    {
-        [self logMessage:msg];
-    }
-    else
-    {
-        [self logError:@"Error converting received data into UTF-8 String"];
-    }
-    
-	[sock readDataToData:[GCDAsyncSocket LFData] withTimeout:-1 tag:0];
-    
+    [file closeFile];
+    [self logMessage:@"File sent"];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
@@ -238,7 +224,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	// This method is executed on the socketQueue (not the main thread
 	
 	[sock readDataToData:[GCDAsyncSocket LFData] withTimeout:READ_TIMEOUT tag:0];
-    
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
