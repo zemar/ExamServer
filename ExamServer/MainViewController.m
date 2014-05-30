@@ -188,17 +188,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 		}
 	});
 	
-	NSString *welcomeMsg = @"Welcome to the AsyncSocket Echo Server\r\n";
-	NSData *welcomeData = [welcomeMsg dataUsingEncoding:NSUTF8StringEncoding];
-	
-	[newSocket writeData:welcomeData withTimeout:-1 tag:WELCOME_MSG];
-	
+//	NSString *welcomeMsg = @"Welcome to the Exam Server\r\n";
+//	NSData *welcomeData = [welcomeMsg dataUsingEncoding:NSUTF8StringEncoding];
+//	[newSocket writeData:welcomeData withTimeout:-1 tag:WELCOME_MSG];
 	[newSocket readDataToData:[GCDAsyncSocket LFData] withTimeout:READ_TIMEOUT tag:0];
 }
 
 - (void)sendFile:(GCDAsyncSocket *)sock
 {
-    [self logMessage:@"Sending file"];
+    [self logMessage:@"Server Sending file"];
 	
     NSFileHandle *file;
     NSData *databuffer;
@@ -216,7 +214,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
 	[sock writeData:databuffer withTimeout:-1 tag:0];
     [file closeFile];
-    [self logMessage:@"File sent"];
+    [self logMessage:@"Server File sent"];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
@@ -253,9 +251,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	});
 	
 	// Ack message back to client
-    NSString *ackMsg = @"Sent File\r\n";
-    NSData *ackData = [ackMsg dataUsingEncoding:NSUTF8StringEncoding];
-	[sock writeData:ackData withTimeout:-1 tag:SND_FILE_MSG];
+//    NSString *ackMsg = @"Server Sent File\r\n";
+//    NSData *ackData = [ackMsg dataUsingEncoding:NSUTF8StringEncoding];
+//	[sock writeData:ackData withTimeout:-1 tag:SND_FILE_MSG];
 }
 
 /**
