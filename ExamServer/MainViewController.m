@@ -11,12 +11,6 @@
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 
-#define WELCOME_MSG  0
-#define ECHO_MSG     1
-#define WARNING_MSG  2
-#define DATA_FILE_MSG 3
-#define SND_FILE_MSG 4
-
 #define READ_TIMEOUT 15.0
 #define READ_TIMEOUT_EXTENSION 10.0
 
@@ -188,15 +182,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 		}
 	});
 	
-//	NSString *welcomeMsg = @"Welcome to the Exam Server\r\n";
-//	NSData *welcomeData = [welcomeMsg dataUsingEncoding:NSUTF8StringEncoding];
-//	[newSocket writeData:welcomeData withTimeout:-1 tag:WELCOME_MSG];
 	[newSocket readDataToData:[GCDAsyncSocket LFData] withTimeout:READ_TIMEOUT tag:0];
 }
 
 - (void)sendFile:(GCDAsyncSocket *)sock
 {
-    [self logMessage:@"Server Sending file"];
+    [self logInfo:@"Server Sending file"];
 	
     NSFileHandle *file;
     NSData *databuffer;
@@ -214,14 +205,14 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
 	[sock writeData:databuffer withTimeout:-1 tag:0];
     [file closeFile];
-    [self logMessage:@"Server File sent"];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
 	// This method is executed on the socketQueue (not the main thread
-	
-	[sock readDataToData:[GCDAsyncSocket LFData] withTimeout:READ_TIMEOUT tag:0];
+
+    [self logInfo:@"Server File sent"];
+	[sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:READ_TIMEOUT tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
@@ -251,9 +242,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	});
 	
 	// Ack message back to client
-//    NSString *ackMsg = @"Server Sent File\r\n";
+//    NSString *ackMsg = @"\r\n";
 //    NSData *ackData = [ackMsg dataUsingEncoding:NSUTF8StringEncoding];
-//	[sock writeData:ackData withTimeout:-1 tag:SND_FILE_MSG];
+//	[sock writeData:ackData withTimeout:-1 tag:0];
 }
 
 /**
@@ -267,10 +258,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 {
 	if (elapsed <= READ_TIMEOUT)
 	{
-		NSString *warningMsg = @"Are you still there?\r\n";
+		NSString *warningMsg = @"\r\n";
 		NSData *warningData = [warningMsg dataUsingEncoding:NSUTF8StringEncoding];
 		
-		[sock writeData:warningData withTimeout:-1 tag:WARNING_MSG];
+		[sock writeData:warningData withTimeout:-1 tag:0];
 		
 		return READ_TIMEOUT_EXTENSION;
 	}
@@ -285,7 +276,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			@autoreleasepool {
                 
-				[self logInfo:FORMAT(@"Client Disconnected")];
+				[self logInfo:@"Client Disconnected"];
                 
 			}
 		});
