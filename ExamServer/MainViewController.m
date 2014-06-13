@@ -191,6 +191,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	
     NSFileHandle *file;
     NSData *databuffer;
+    NSString *CRLF = @"\x0D\x0A";
+    NSData *term = [CRLF dataUsingEncoding:NSUTF8StringEncoding];
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"questions" ofType:@"xml"];
     
@@ -204,6 +206,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     databuffer = [file readDataToEndOfFile];
     
 	[sock writeData:databuffer withTimeout:-1 tag:0];
+	[sock writeData:term withTimeout:-1 tag:0];
     [file closeFile];
 }
 
@@ -240,11 +243,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             
 		}
 	});
-	
-	// Ack message back to client
-//    NSString *ackMsg = @"\r\n";
-//    NSData *ackData = [ackMsg dataUsingEncoding:NSUTF8StringEncoding];
-//	[sock writeData:ackData withTimeout:-1 tag:0];
 }
 
 /**
